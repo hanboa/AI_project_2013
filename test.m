@@ -17,11 +17,12 @@ bit = 128;%bit;                      % bits used
 
 %X = gist_gen(); %don't use gist
 load IMAGES.mat
-windowSize = 14;
-num_totalSamples = 10000;
-num_thresholdSamples = 5;
+windowSize = 14;% the window size of a patch
+num_totalSamples = 10000;% the number for sampling total patches
+num_thresholdSamples = 5;% the number of samples to decide a threshold
 X_patches = getdata_imagearray(IMAGES, windowSize, num_totalSamples);
 X = X_patches';
+
 % split up into training and test set
 [ndata, D] = size(X);
 R = randperm(ndata);
@@ -46,15 +47,13 @@ DtrueTestTraining = distMat(Xtest,Xtraining);
 WtrueTestTraining = DtrueTestTraining < Dball;
 clear DtrueTestTraining
 
-
 % generate training ans test split and the data matrix
 XX = [Xtraining; Xtest];
 % center the data, VERY IMPORTANT
 sampleMean = mean(XX,1);
 XX = (XX - repmat(sampleMean,size(XX,1),1));
 
-
-%several state of the methods
+% states of the methods
 switch(method)
     
     % DIC, dictionary learning method proposed in our project
@@ -77,12 +76,12 @@ switch(method)
 end
 
 % compute Hamming metric and compute recall precision
-B1 = Y(1:size(Xtraining,1),:);
-B2 = Y(size(Xtraining,1)+1:end,:);
+B1 = Y(1:size(Xtraining,1),:);% the training data
+B2 = Y(size(Xtraining,1)+1:end,:);% the testing data
 display 'Hamming Distance'
-Dhamm = hammingDist(B2, B1);
+Dhamm = hammingDist(B2, B1);% Hamming distance between them
 display 'Hamming Distance Done!'
-[recall, precision, rate] = recall_precision(WtrueTestTraining, Dhamm);
+[recall, precision, rate] = recall_precision(WtrueTestTraining, Dhamm);% P-R curve
 
 % plot the curve
 figure;
