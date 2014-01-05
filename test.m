@@ -6,7 +6,7 @@ function [recall, precision] = test(X, bit, method, Dic)
 %
 
 % Dictionary
-sparseCoding = load('sc_L1_b512_beta0.4_20131224T011516.mat');
+sparseCoding = load('dictionary_L1_b512_30600sampling_20140103T010408.mat');
 Dic = sparseCoding.B;
 method = 'DIC'
 
