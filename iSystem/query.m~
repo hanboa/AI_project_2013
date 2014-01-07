@@ -6,7 +6,7 @@ if ~exist('numQuery'),
     numQuery = 8;
 end
 if ~exist('numRetrieve'),
-    numRetrieve = 5;
+    numRetrieve = ;
 end
 
 % load data from indexed database, dictionary
