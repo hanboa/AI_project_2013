@@ -1,4 +1,4 @@
-function output = query(numQuery, numRetrieve),
+function output = query(numQuery, numRetrieve)
 querySet = struct();
 
 % parameters for query
@@ -11,7 +11,7 @@ end
 
 % load data from indexed database, dictionary
 clear database;
-db = load('database.mat')
+db = load('database.mat');
 database = db.database;
 clear db;
 load dictionary_L1_b512_30600sampling_20140103T010408.mat
@@ -20,14 +20,13 @@ Dic = B;
 % parameters for sampling patches
 windowSize = 14;% the window size of a patch
 num_totalSamples = 153;% the number for sampling total patches
-num_thresholdSamples = 5;% the number of samples to decide a threshold
 rand_values = struct();
 
 % query and read the data from "queries"
-path = 'queries/*.*g';
+path = '../queries/*.*g';
 imgs = dir(path);
 for i = 1 : numQuery, 
-    img_path = sprintf('queries/%s',imgs(i).name);
+    img_path = sprintf('../queries/%s',imgs(i).name);
     img = imread(img_path);
     img = filter_whiten(img);
 
@@ -65,17 +64,27 @@ for i = 1 : numQuery,
     
     % show query image
     im = imread(img_path);
-    figure; imshow(im);title(sprintf('Query Image %d %s', i, querySet(i).name));
+    figure; 
+    imshow(im);title(sprintf('Query Image %d %s', i, querySet(i).name));
+    pause;
     
     % show retrieved images
-    topNumber = 10;
+    figure;
+    title('Retrieved Images');
+    topNumber = numRetrieve;
+    if numRetrieve < 3
+        Numrow = 1;
+    else
+        Numrow = 2;
+    end
+    Numcolumn = ceil(numRetrieve/Numrow);
     for j = 1 : topNumber,
         index = querySet(i).sortedIndex(j);
         db = database(index);
-        path = sprintf('dictionary_dataset/%s', db.name);
+        path = sprintf('../dataset/%s', db.name);
         im = imread(path);
-        figure; imshow(im);title(sprintf('Retrieved Image %d %s', j, db.name));
-        
+        subplot(Numrow, Numcolumn, j);
+        imshow(im);
     end
     
     display( sprintf('Query Done: [%d/%d]', i,length(imgs)) );
