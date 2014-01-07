@@ -15,7 +15,7 @@ for j = 1 : nbits
         end
     end
     sortedCount=sort(oneCount,'descend');
-    if oneCount(1,j)>sortedCount(1,ceil(nbits/10));
+    if oneCount(1,j)>sortedCount(1,ceil(nbits/20));
         bavg(1,j) = 1;
     end
 end
@@ -25,6 +25,3 @@ for j = 1:nbits
     w = ceil(j/8);
     cb(1,w) = bitset(cb(1,w), mod(j-1,8)+1, bavg(1,j));
 end
-
-display(b);
-display(bavg);

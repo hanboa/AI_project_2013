@@ -3,10 +3,10 @@ querySet = struct();
 
 % parameters for query
 if ~exist('numQuery'),
-    numQuery = 8;
+    numQuery = 5;
 end
 if ~exist('numRetrieve'),
-    numRetrieve = 5;
+    numRetrieve = 6;
 end
 
 % load data from indexed database, dictionary
@@ -19,7 +19,7 @@ Dic = B;
 
 % parameters for sampling patches
 windowSize = 14;% the window size of a patch
-num_totalSamples = 153;% the number for sampling total patches
+num_totalSamples = 200;% the number for sampling total patches
 rand_values = struct();
 
 % query and read the data from "queries"
@@ -68,7 +68,6 @@ i = numQuery;
     im = imread(img_path);
     figure; 
     imshow(im);title(sprintf('Query Image %d %s', i, querySet(i).name));
-    pause;
     
     % show retrieved images
     figure;
