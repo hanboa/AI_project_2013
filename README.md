@@ -1,26 +1,19 @@
 AI_project_2013
 ===============
 
-First, 
-the directory of dataset on Github is empty and remind you to download the dataset from the link:
+How to execute:
 
-https://www.dropbox.com/sh/kf2j9u2p8g47tzp/W1831jbHUH
+1. Go to the directory 'iSystem'
 
-and then replies the directory, such as ?queries? and ?dictionary_dataset?
-
-Second, how to execute:
-
-1. Go to the directory of ?iSystem?
-
-2. Type the command in your Matlab console
+2. Type the following command in your Matlab console:
 	query();
 or
 	query( number_query_image, number_retrieved_image)
 
-NOTE: make sure the query image?s number is enough in the directory of ?queries?
+NOTE: The value of 'number_query_image' should be smaller than the total number of images in the directory 'queries'!
 
 3. You will get the result (by default): 
-	one query image from ?queries? and 10 similar images from ?dictionary_dataset?
+	one query image from 'queries' and 10 similar images from 'dataset'
 
 
 
@@ -31,4 +24,4 @@ TO BE IMPROVED:
 
 
 NOTE:
-Database has been indexed as ?database.mat? by the function ?databaseIndexing.m?
+Database has been indexed as database.mat by the function databaseIndexing.m
