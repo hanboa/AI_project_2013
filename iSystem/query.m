@@ -4,6 +4,12 @@ querySet = struct();
 % parameters for query
 if ~exist('numQuery'),
     numQuery = 1;
+    [filename, pathname ]= uigetfile(sprintf('%s/queries/*.*g',pwd), 'Query');% get the query image by yourself
+    filename = fullfile(pathname, filename);
+    display(filename)
+%     file_path = sprintf('queries/%s',filename);
+%     display(file_path);
+%     figure;imshow(file_path);
 end
 if ~exist('numRetrieve'),
     numRetrieve = 10;
@@ -27,7 +33,8 @@ rand_values = struct();
 path = 'queries/*.*g';
 imgs = dir(path);
 for i = 1 : numQuery, 
-    img_path = sprintf('queries/%s',imgs(i).name);
+    %img_path = sprintf('queries/%s',imgs(i).name);
+    img_path = filename;
     img = imread(img_path);
     img = filter_whiten(img);
 
