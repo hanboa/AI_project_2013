@@ -27,4 +27,3 @@ for j=1:getsample
     temp =reshape(this_image(r:r+sz-1,c:c+sz-1),sz^2,1);
     X(:,totalsamples) = temp - mean(temp);
 end
-fprintf('\n');

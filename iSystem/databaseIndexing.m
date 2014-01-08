@@ -1,27 +1,26 @@
-function output = databaseIndexing(),
+function output = databaseIndexing()
 database = struct(); 
 
 % read the dictionary
-            %load IMAGE_WHITEN_AI.mat %IMAGES.mat
 load dictionary_L1_b512_30600sampling_20140103T010408.mat
 Dic = B;
 
 % parametes for sampling
 windowSize = 14;% the window size of a patch
-num_totalSamples = 153;% the number for sampling total patches
-num_thresholdSamples = 5;% the number of samples to decide a threshold
+num_totalSamples = 5000;% the number for sampling total patches
 rand_values = struct();
 
-% read the data from dictionary_dataset
-path = 'dictionary_dataset/*.*g';
+% read the data from dataset
+path = '../dataset/*.*g';
 imgs = dir(path);
 for i = 1 : length(imgs),
-    img_path = sprintf('dictionary_dataset/%s',imgs(i).name);
+    img_path = sprintf('../dataset/%s',imgs(i).name);
     img = imread(img_path);
     img = filter_whiten(img);
 
     % get image patches
-    [X_patches rand_values]= getdata_imagepatch(img, windowSize, num_totalSamples);
+    [X_patches rand_values]= ...
+        getdata_imagepatch(img, windowSize, num_totalSamples);
     X = X_patches';
 
     % dictioanry projection
@@ -31,9 +30,8 @@ for i = 1 : length(imgs),
     % binary code
     Y = zeros(size(re));
     Y(re>=0) = 1;
-
+    
     % compact bits
-    Y = reshape(Y, 1, size(Y,1)*size(Y,2));
     Y = compactbit(Y);
     
     % storing data to database
